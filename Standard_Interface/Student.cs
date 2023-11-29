@@ -6,12 +6,23 @@ using System.Threading.Tasks;
 
 namespace Standard_Interface
 {
-    class Student: IComparable
+    class Student: IComparable, ICloneable, IEquatable
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDay { get; set; }
         public Student_Card Card { get; set; }
+
+        public object Clone()
+        {
+            Student temp = (Student)this.MemberwiseClone();
+            temp.Card = new Student_Card()
+            {
+                Series = this.Card.Series,
+                Number = this.Card.Number
+            };
+            return temp;
+        }
 
         public int CompareTo(object obj)
         {
